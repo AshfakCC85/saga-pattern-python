@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  customer_db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+  
+  order_app:
+    container_name: customer_service
+    depends_on:
+      - customer_db
+    build: .
+    environment:
+      DB_HOST: customer_db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: postgres
+    links:
+      - customer_db
+volumes:
+  db:
+    driver: local
