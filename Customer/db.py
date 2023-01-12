@@ -1,6 +1,29 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from typing import List, Optional
 
-engine = create_engine("postgresql://scott:tiger@localhost/test", echo=True, future=True)
+from sqlmodel import SQLModel, create_engine, Session, select
+from .models import Customer
 
-Base = declarative_base()
+sqlite_file_name = "database.db"
+sqlite_url = f"sqlite:///{sqlite_file_name}"
+
+engine = create_engine(sqlite_url)
+
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
+
+
+def get_customers() -> List[Customer]:
+    with Session(engine) as session:
+        statement = select(Customer)
+        results = session.exec(statement)
+        results = results.first()
+        return results
+
+
+def get_customer(id) -> Customer:
+    with Session(engine) as session:
+        statement = select(Customer).where(Customer.id==id)
+        results = session.exec(statement)
+        results = results.first()
+        return results
