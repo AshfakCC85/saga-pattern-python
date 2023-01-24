@@ -2,14 +2,14 @@ from typing import Union
 
 from fastapi import FastAPI
 
-from db import create_db_and_tables
+from db import create_db_and_tables, get_customers
 
 app = FastAPI()
 
 
 @app.get("/get_customers")
 def read_root():
-    return {"Hello": "World"}
+    return get_customers()
 
 
 

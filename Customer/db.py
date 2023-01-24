@@ -1,9 +1,9 @@
 from typing import List, Optional
 
 from sqlmodel import SQLModel, create_engine, Session, select
-from .models import Customer
+from models import Customer
 
-sqlite_file_name = "database.db"
+sqlite_file_name = "database.sqlite"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 engine = create_engine(sqlite_url)
@@ -17,7 +17,7 @@ def get_customers() -> List[Customer]:
     with Session(engine) as session:
         statement = select(Customer)
         results = session.exec(statement)
-        results = results.first()
+        results = results.all()
         return results
 
 
