@@ -21,9 +21,11 @@ services:
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: postgres
-      DB_NAME: postgres
     links:
       - customer_db
+    ports:
+      - '8000:8000'
+    command: uvicorn app:app --host 0.0.0.0 --port 8000
 volumes:
   db:
     driver: local

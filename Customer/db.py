@@ -4,7 +4,7 @@ from sqlmodel import SQLModel, create_engine, Session, select
 from models import Customer
 
 sqlite_file_name = "database.sqlite"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
+sqlite_url = f"postgresql://customer_db/?user=postgres&password=postgres"
 
 engine = create_engine(sqlite_url)
 
@@ -26,4 +26,14 @@ def get_customer(id) -> Customer:
         statement = select(Customer).where(Customer.id==id)
         results = session.exec(statement)
         results = results.first()
+        print('here', results)
         return results
+
+
+def create_customer(customer):
+    with Session(engine) as session:
+        db_cus = Customer.from_orm(customer)
+        session.add(db_cus)
+        session.commit()
+        session.refresh(db_cus)
+        return db_cus
