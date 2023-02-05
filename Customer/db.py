@@ -1,10 +1,10 @@
-from typing import List, Optional
+from typing import List
 
 from sqlmodel import SQLModel, create_engine, Session, select
 from models import Customer
 
 sqlite_file_name = "database.sqlite"
-sqlite_url = f"postgresql://customer_db/?user=postgres&password=postgres"
+sqlite_url = "postgresql://customer_db/?user=postgres&password=postgres"
 
 engine = create_engine(sqlite_url)
 

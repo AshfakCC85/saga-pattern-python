@@ -1,4 +1,3 @@
-from typing import List
 
 from sqlmodel import SQLModel, create_engine, Session, select
 from fastapi import HTTPException
@@ -6,7 +5,7 @@ from fastapi import HTTPException
 from models import Order, OrderedProducts
 
 sqlite_file_name = "database.sqlite"
-sqlite_url = f"postgresql://order_db/?user=postgres&password=postgres"
+sqlite_url = "postgresql://order_db/?user=postgres&password=postgres"
 
 engine = create_engine(sqlite_url)
 

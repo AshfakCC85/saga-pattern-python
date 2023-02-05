@@ -4,7 +4,7 @@ from sqlmodel import SQLModel, create_engine, Session, select
 from models import Product
 
 sqlite_file_name = "database.sqlite"
-sqlite_url = f"postgresql://product_db/?user=postgres&password=postgres"
+sqlite_url = "postgresql://product_db/?user=postgres&password=postgres"
 
 engine = create_engine(sqlite_url)
 

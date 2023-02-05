@@ -1,6 +1,5 @@
-from typing import Union, List
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 
 from db import create_db_and_tables, create_order, get_one_order, create_order_products
 from models import Order

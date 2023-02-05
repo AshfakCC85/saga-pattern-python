@@ -2,7 +2,6 @@ from typing import List
 
 from pydantic import BaseModel
 
-from enums import Status
 
 
 class OrderedProducts(BaseModel):
