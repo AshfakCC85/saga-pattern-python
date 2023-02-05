@@ -14,7 +14,7 @@ def read_root() -> List[Customer]:
 
 
 @app.get("/customer/{cus_id}")
-def read_root(cus_id: int) -> Customer:
+def get_one_customer(cus_id: int) -> Customer:
     customer = get_customer(cus_id)
     if not customer:
         raise HTTPException(status_code=404, detail='Customer not found')

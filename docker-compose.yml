@@ -1,0 +1,91 @@
+version: '3.8'
+services:
+  product_db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5960:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+  
+  product_app:
+    container_name: Product_Service
+    depends_on:
+      - product_db
+    build: 
+      context: Inventory
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: product_db
+      DB_PORT: 5960
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    links:
+      - product_db
+    ports:
+      - '8000:8000'
+    command: uvicorn app:app --host 0.0.0.0 --port 8000
+
+  customer_db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5961:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+  
+  customer_app:
+    container_name: Customer_Service
+    depends_on:
+      - customer_db
+    build:
+      context: Customer
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: customer_db
+      DB_PORT: 5961
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    links:
+      - customer_db
+    ports:
+      - '8001:8001'
+    command: uvicorn app:app --host 0.0.0.0 --port 8001
+
+  order_db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5962:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+  
+  order_app:
+    container_name: Order_Service
+    depends_on:
+      - order_db
+    build:
+      context: Order
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: order_db
+      DB_PORT: 5962
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    links:
+      - order_db
+    ports:
+      - '8002:8002'
+    command: uvicorn app:app --host 0.0.0.0 --port 8002
+volumes:
+  db:
+    driver: local

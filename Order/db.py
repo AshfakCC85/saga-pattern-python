@@ -6,6 +6,8 @@ from models import Order, OrderedProducts
 
 sqlite_file_name = "database.sqlite"
 sqlite_url = "postgresql://order_db/?user=postgres&password=postgres"
+# sqlite_url = "postgresql://postgres:postgres@localhost/Order"
+
 
 engine = create_engine(sqlite_url)
 

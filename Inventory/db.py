@@ -5,6 +5,7 @@ from models import Product
 
 sqlite_file_name = "database.sqlite"
 sqlite_url = "postgresql://product_db/?user=postgres&password=postgres"
+# sqlite_url = "postgresql://postgres:postgres@localhost/Product"
 
 engine = create_engine(sqlite_url)
 
